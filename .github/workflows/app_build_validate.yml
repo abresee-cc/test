@@ -1,0 +1,12 @@
+name: Test Workflow Actions
+
+on:
+  push:
+    branches: 
+      - main
+    workflow_dispatch:
+
+jobs:
+  hello_world:
+    steps:
+      - run: echo "pass"
