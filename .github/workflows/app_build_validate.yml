@@ -10,4 +10,4 @@ jobs:
   hello_world:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "pass"
+      - run: echo "${{vars.CURRENT_PERFORMANCE_VERSION}}"
