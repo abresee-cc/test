@@ -8,5 +8,6 @@ on:
 
 jobs:
   hello_world:
+    runs-on: ubuntu-latest
     steps:
       - run: echo "pass"
