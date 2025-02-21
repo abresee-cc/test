@@ -1,0 +1,14 @@
+name: Print Args
+
+on: 
+  workflow_dispatch:
+    inputs:
+      test:
+        type: string
+        required: true
+
+jobs:
+  print-input:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{inputs.test}}"

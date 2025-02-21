@@ -1,4 +1,4 @@
-name: Test Workflow Actions
+name: Print Version
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  hello_world:
+  print-version:
     runs-on: ubuntu-latest
     steps:
       - run: echo "${{vars.CURRENT_PERFORMANCE_VERSION}}"
