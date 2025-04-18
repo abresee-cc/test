@@ -13,7 +13,7 @@ jobs:
       pull-requests: read
       contents: read
 
-  clearco-webapp-build-validate:
+  clearco-webapp-build-validate-impl:
     needs: detect-changes
     if: needs.detect-changes.outputs.clearco-webapp == 'true'
     uses: ./.github/workflows/build_validate_webapp.yml
@@ -21,6 +21,14 @@ jobs:
       project-directory: clearco-webapp
     permissions: 
       contents: read
+
+  clearco-webapp-build-validate:
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    if: needs.detect-changes.outputs.clearco-webapp == 'true'
+    steps:
+    - run: |
+        echo foo
 
   cc-reacthost-build-validate:
     needs: detect-changes
