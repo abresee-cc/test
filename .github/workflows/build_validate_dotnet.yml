@@ -10,7 +10,6 @@ on:
         
 jobs:
   cc-reacthost-build-and-validate:
-    name: Validate ${{ inputs.project-directory }}
     permissions: 
       contents: read
     runs-on: ubuntu-latest
