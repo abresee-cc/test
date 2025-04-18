@@ -22,21 +22,25 @@ jobs:
     permissions: 
       contents: read
 
-  clearco-webapp-build-validate:
-    needs: detect-changes
-    runs-on: ubuntu-latest
-    if: needs.detect-changes.outputs.clearco-webapp == 'true'
-    steps:
-    - run: |
-        echo foo
-
   foobar:
-    needs: detect-changes
+    needs: clearco-webapp-build-validate-impl
     runs-on: ubuntu-latest
-    if: needs.detect-changes.outputs.clearco-webapp == 'true'
+    if: always()
     steps:
     - run: |
-        echo foo
+        if [[${{ needs.clearco-webapp-build-validate-impl.result }} == 'failure' ]]; then
+            exit 1;
+        fi;
+
+  clearco-webapp-build-validate:
+    needs: clearco-webapp-build-validate-impl
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - run: |
+        if [[${{ needs.clearco-webapp-build-validate-impl.result }} == 'failure' ]]; then
+            exit 1;
+        fi;
 
   cc-reacthost-build-validate:
     needs: detect-changes
