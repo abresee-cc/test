@@ -12,6 +12,9 @@ jobs:
   detect-changes:
     name: Detect changes in the pull request.
     uses: ./.github/workflows/detect_changes.yml
+    permissions: 
+      pull-requests: read
+      contents: read
 
   clearco-webapp-build-validate:
     name: Build and validate clearco-webapp
@@ -20,6 +23,8 @@ jobs:
     uses: ./.github/workflows/build_validate_webapp.yml
     with: 
       project-directory: clearco-webapp
+    permissions: 
+      contents: read
 
   cc-reacthost-build-validate:
     name: Build and validate cc-reacthost
