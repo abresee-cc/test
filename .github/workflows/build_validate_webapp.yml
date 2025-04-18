@@ -10,7 +10,6 @@ on:
 
 jobs:
   clearco-webapp-build-validate:
-    name: Validate ${{ inputs.project-directory }}
     permissions: 
       contents: read
     runs-on: ubuntu-latest

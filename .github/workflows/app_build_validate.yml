@@ -10,7 +10,6 @@ concurrency:
 
 jobs:
   detect-changes:
-    name: Detect changes in the pull request.
     uses: ./.github/workflows/detect_changes.yml
     permissions: 
       pull-requests: read
