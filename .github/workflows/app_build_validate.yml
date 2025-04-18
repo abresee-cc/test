@@ -30,6 +30,14 @@ jobs:
     - run: |
         echo foo
 
+  foobar:
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    if: needs.detect-changes.outputs.clearco-webapp == 'true'
+    steps:
+    - run: |
+        echo foo
+
   cc-reacthost-build-validate:
     needs: detect-changes
     if: needs.detect-changes.outputs.cc-reacthost == 'true'
@@ -49,3 +57,5 @@ jobs:
     secrets: inherit
     permissions: 
       contents: read
+    
+
