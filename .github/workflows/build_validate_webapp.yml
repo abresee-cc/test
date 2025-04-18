@@ -9,7 +9,7 @@ on:
         description: the project directory and thus name of the project
 
 jobs:
-  validate-webapp:
+  clearco-webapp-build-validate:
     name: Validate ${{ inputs.project-directory }}
     permissions: 
       contents: read

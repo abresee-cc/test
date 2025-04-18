@@ -9,7 +9,7 @@ on:
         description: the project directory to build, and thus name of the project, from which the test directory will also be inferred.
         
 jobs:
-  dotnet-build-and-validate:
+  cc-reacthost-build-and-validate:
     name: Validate ${{ inputs.project-directory }}
     permissions: 
       contents: read
