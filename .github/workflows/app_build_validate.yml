@@ -1,0 +1,40 @@
+name: Validate Changes
+
+on:
+  pull_request:
+    branches: [ "*" ]
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{github.workflow_ref}}${{github.ref_name}}
+
+jobs:
+  detect-changes:
+    name: Detect changes in the pull request.
+    uses: ./.github/workflows/detect_changes.yml
+
+  clearco-webapp-build-validate:
+    name: Build and validate clearco-webapp
+    needs: detect-changes
+    if: needs.detect-changes.outputs.clearco-webapp == 'true'
+    uses: ./.github/workflows/build_validate_webapp.yml
+    with: 
+      project-directory: clearco-webapp
+
+  cc-reacthost-build-validate:
+    name: Build and validate cc-reacthost
+    needs: detect-changes
+    if: needs.detect-changes.outputs.cc-reacthost == 'true'
+    uses: ./.github/workflows/build_validate_dotnet.yml
+    with: 
+      project-directory: Cc.ReactHost
+    secrets: inherit
+
+  cc-webbff-build-validate:
+    name: Build and validate cc-webbff
+    needs: detect-changes
+    if: needs.detect-changes.outputs.cc-webbff == 'true'
+    uses: ./.github/workflows/build_validate_dotnet.yml
+    with: 
+      project-directory: Cc.WebBff
+    secrets: inherit

@@ -1,0 +1,66 @@
+name: Detect Changes
+
+on: 
+  workflow_call:
+    inputs:
+      base:
+        required: false
+        type: string
+        description: the base branch to compare against
+
+    outputs:
+      clearco-webapp:
+        value: ${{ jobs.detect-changes.outputs.clearco-webapp }}
+        description: "'true' if there were changes relevant to clearco-webapp, 'false' otherwise. Returned as a string because GHA gets easily confused otherwise."
+      cc-reacthost:
+        value: ${{ jobs.detect-changes.outputs.cc-reacthost }}
+        description: "'true' if there were changes relevant to cc-reacthost, 'false' otherwise. Returned as a string because GHA gets easily confused otherwise."
+      cc-webbff:
+        value: ${{ jobs.detect-changes.outputs.cc-webbff }}
+        description: "'true' if there were changes relevant to cc-webbff, 'false' otherwise. Returned as a string because GHA gets easily confused otherwise."
+
+jobs:
+  detect-changes:
+    name: Detect changes on the PR, or relative to base
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.228
+      with:
+        fetch-depth: 0
+
+    - name: Filter the paths in the relevant changes.
+      # using a sha instead of a tag avoids tag reassign attack
+      uses: step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1 # v45.0.1
+      id: filter
+      with:
+        base_sha: ${{ inputs.base }}
+        files_yaml: |
+          clearco-webapp:
+            - 'clearco-webapp/**'
+          cc-reacthost:
+            - 'Cc.ReactHost/**'
+            - 'Directory.Build.targets'
+            - 'Directory.Build.props'
+            - 'Directory.Packages.props'
+          cc-webbff:
+            - 'Cc.WebBff/**'
+            - 'Directory.Build.targets'
+            - 'Directory.Build.props'
+            - 'Directory.Packages.props'
+
+    - name: Echo values
+      run: |
+        echo clearco-webapp: ${{ steps.filter.outputs.clearco-webapp_any_modified }}
+        echo cc-reacthost: ${{ steps.filter.outputs.cc-reacthost_any_modified }}
+        echo cc-webbff: ${{ steps.filter.outputs.cc-webbff_any_modified }}
+
+    # Set job outputs to values from filter step
+    outputs:
+      clearco-webapp: ${{ steps.filter.outputs.clearco-webapp_any_modified }}
+      cc-reacthost: ${{ steps.filter.outputs.cc-reacthost_any_modified }}
+      cc-webbff: ${{ steps.filter.outputs.cc-webbff_any_modified }}

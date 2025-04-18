@@ -1,0 +1,18 @@
+name: Validate Webapp Changes
+
+on:
+  workflow_call:
+    inputs: 
+      project-directory:
+        required: true
+        type: string
+        description: the project directory and thus name of the project
+
+jobs:
+  validate-webapp:
+    name: Validate ${{ inputs.project-directory }}
+    permissions: 
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.22
