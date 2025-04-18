@@ -34,6 +34,8 @@ jobs:
     with: 
       project-directory: Cc.ReactHost
     secrets: inherit
+    permissions: 
+      contents: read
 
   cc-webbff-build-validate:
     name: Build and validate cc-webbff
@@ -43,3 +45,5 @@ jobs:
     with: 
       project-directory: Cc.WebBff
     secrets: inherit
+    permissions: 
+      contents: read
