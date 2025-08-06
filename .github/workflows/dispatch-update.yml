@@ -25,12 +25,10 @@ on:
 
 jobs:
   dispatch-update:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: abresee-cc/test2/.github/workflows/dispatch_update.yml@main
-      with: 
-        service: ${{ inputs.service }}
-        version: ${{inputs.version}}
-        environment: ${{inputs.environment}}
+    uses: abresee-cc/test2/.github/workflows/dispatch_update.yml@main
+    with: 
+      service: ${{ inputs.service }}
+      version: ${{inputs.version}}
+      environment: ${{inputs.environment}}
 
 
