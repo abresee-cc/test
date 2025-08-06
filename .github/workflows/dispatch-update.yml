@@ -24,6 +24,7 @@ on:
 jobs:
   dispatch-update:
     uses: abresee-cc/test2/.github/workflows/dispatch_update.yml@main
+    secrets: inherit
     with: 
       service: ${{ inputs.service }}
       version: ${{ inputs.version }}
