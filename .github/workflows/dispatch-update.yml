@@ -26,5 +26,5 @@ jobs:
     uses: abresee-cc/test2/.github/workflows/dispatch_update.yml@main
     with: 
       service: ${{ inputs.service }}
-      version: ${{inputs.version}}
-      environment: ${{inputs.environment}}
+      version: ${{ inputs.version }}
+      environment: ${{ inputs.environment }}
