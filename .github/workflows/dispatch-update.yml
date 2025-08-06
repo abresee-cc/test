@@ -12,11 +12,9 @@ on:
         required: true
         description: the version string to use
       environment:
-        # type: string
         type: choice
         required: true
         description: the environment to use
-        # TODO: delete the options when making this back into a reusable workflow
         options: 
         - development
         - staging
@@ -30,5 +28,3 @@ jobs:
       service: ${{ inputs.service }}
       version: ${{inputs.version}}
       environment: ${{inputs.environment}}
-
-
